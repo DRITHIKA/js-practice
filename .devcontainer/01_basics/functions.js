@@ -29,5 +29,27 @@ function addTwoNumbers (n1,n2){
     //console.log(username("drithika"))
     //if no value was passed then it will shoe " undefined just logged in"
      console.log(username());
-     
 
+
+     function calculatecarprice(...num1){
+        return num1
+     }
+     console.log(calculatecarprice(200,300,400));
+     // gives an array of num1
+
+ const usaar ={
+    username1:"drithika",
+    price:3333
+
+     }
+     function handleobject(anyobject){
+        console.log(`username is ${anyobject.username1} and price ${anyobject.price}`);
+        
+     }
+     handleobject(usaar)
+
+     const mynewarray= [200,300,400]
+function returnsecvalue(getArray){
+    return getArray[1]
+}
+console.log(returnsecvalue(mynewarray));

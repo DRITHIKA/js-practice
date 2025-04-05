@@ -120,3 +120,33 @@ mycoding.forEach((item)=>{
     console.log(item.languageName);
     
 })
+
+const myNums= [1,2,3,4,5,6,7,8,9,10]
+const newnums=myNums.filter((num)=> {
+    return num>4 //if i open scope i need to write return keyword
+})
+
+
+console.log(newnums);
+
+// filter keyword is used to as so its name
+ 
+// const newnumss = myNums.map((num)=>{
+//     return num+10
+// })
+
+//chaining
+const newnumss= myNums
+.map((num)=> num*10)
+.map((num)=> num+1)
+.filter((num)=> num>=40)
+console.log(newnumss);
+
+//reduce
+const suminitialvalu= myNums.reduce(function(acc,currval){
+   console.log(`acc: ${acc} and currval: ${currval}`);
+   
+    return acc +currval
+},0)
+console.log(suminitialvalu);
+

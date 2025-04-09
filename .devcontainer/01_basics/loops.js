@@ -150,3 +150,4 @@ const suminitialvalu= myNums.reduce(function(acc,currval){
 },0)
 console.log(suminitialvalu);
 
+// DOM- DOOCUMENT OBJECT MODEL

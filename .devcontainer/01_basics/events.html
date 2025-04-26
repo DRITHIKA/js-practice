@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Playground</title>
+  <style>
+    .button {
+      margin: 10px;
+      padding: 10px;
+      background: lightblue;
+      cursor: pointer;
+    }
+    .box {
+      padding: 50px;
+      background: lightcoral;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<button id="clickBtn" class="button">Click Me!</button>
+<div class="box" id="outerBox">
+  Outer Box
+  <div class="box" id="innerBox">
+    Inner Box
+  </div>
+</div>
+<a href="https://google.com" id="link">Go to Google</a>
+
+<script>
+
+// ====== Type of event, timestamp, defaultPrevented
+document.getElementById("clickBtn").addEventListener("click", function(event) {
+  console.log("Type:", event.type);
+  console.log("Timestamp:", event.timeStamp);
+  console.log("Default Prevented:", event.defaultPrevented);
+});
+
+// ====== target, toElement, currentTarget, srcElement (srcElement for old IE, same as target mostly)
+document.getElementById("clickBtn").addEventListener("click", function(event) {
+  console.log("Target:", event.target);
+  console.log("To Element:", event.toElement);
+  console.log("Current Target:", event.currentTarget);
+  console.log("Src Element:", event.srcElement);
+});
+
+// ====== clientX, clientY, screenX, screenY, offsetX
+document.getElementById("clickBtn").addEventListener("click", function(event) {
+  console.log("ClientX:", event.clientX, "ClientY:", event.clientY);
+  console.log("ScreenX:", event.screenX, "ScreenY:", event.screenY);
+  console.log("OffsetX:", event.offsetX);
+});
+
+// ====== altKey, ctrlKey (detect if user pressed ALT or CTRL while clicking)
+document.getElementById("clickBtn").addEventListener("click", function(event) {
+  console.log("AltKey pressed:", event.altKey);
+  console.log("CtrlKey pressed:", event.ctrlKey);
+});
+
+// ====== Bubbling and Capturing
+document.getElementById("outerBox").addEventListener("click", function() {
+  console.log("Outer Box Clicked (Bubbling phase)");
+});
+document.getElementById("innerBox").addEventListener("click", function() {
+  console.log("Inner Box Clicked (Bubbling phase)");
+});
+
+// ====== Bubbling vs Capturing Example
+document.getElementById("outerBox").addEventListener("click", function() {
+  console.log("Outer Box Capturing Phase");
+}, true); // TRUE = capturing phase
+
+// ====== Event Delegation (single listener for multiple child elements)
+document.getElementById("outerBox").addEventListener("click", function(event) {
+  if (event.target.classList.contains('box')) {
+    console.log("Delegated click on:", event.target.id);
+  }
+});
+
+// ====== event.stopPropagation()
+document.getElementById("innerBox").addEventListener("click", function(event) {
+  event.stopPropagation();
+  console.log("Inner Box clicked but stopped bubbling to Outer Box!");
+});
+
+// ====== event.stopImmediatePropagation()
+document.getElementById("clickBtn").addEventListener("click", function(event) {
+  event.stopImmediatePropagation();
+  console.log("Stopped all other listeners for this click!");
+});
+document.getElementById("clickBtn").addEventListener("click", function() {
+  console.log("This will NOT run because stopImmediatePropagation blocked it.");
+});
+
+// ====== event.preventDefault()
+document.getElementById("link").addEventListener("click", function(event) {
+  event.preventDefault();
+  console.log("Link click prevented!");
+});
+
+// ====== event.target and event.target.parentNode
+document.getElementById("outerBox").addEventListener("click", function(event) {
+  console.log("Clicked element:", event.target);
+  console.log("Parent Node:", event.target.parentNode);
+});
+
+// ====== removeChild, removeAttribute
+const removableBtn = document.createElement('button');
+removableBtn.innerText = "Remove Me!";
+removableBtn.setAttribute('id', 'removeBtn');
+document.body.appendChild(removableBtn);
+
+removableBtn.addEventListener("click", function() {
+  document.body.removeChild(removableBtn);
+});
+
+// ====== removeEventListener
+function sayHello() {
+  console.log("Hello!");
+}
+document.getElementById("clickBtn").addEventListener("dblclick", sayHello);
+
+// Remove listener after 5 seconds
+setTimeout(() => {
+  document.getElementById("clickBtn").removeEventListener("dblclick", sayHello);
+  console.log("Removed dblclick event listener from ClickBtn!");
+}, 5000);
+
+// ====== tagName, target.id, target.className, target.classList
+document.getElementById("outerBox").addEventListener("click", function(event) {
+  console.log("TagName:", event.target.tagName);
+  console.log("ID:", event.target.id);
+  console.log("ClassName:", event.target.className);
+  console.log("ClassList:", [...event.target.classList]);
+});
+
+</script>
+</body>
+</html>

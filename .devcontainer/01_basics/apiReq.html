@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // API request using fetch
+    // fetch is a modern way to make HTTP requests in JavaScript. It is built into most modern browsers and is a more powerful and flexible alternative to XMLHttpRequest.
+    // fetch is a built-in JavaScript function that allows you to make network requests similar to XMLHttpRequest. It returns a Promise that resolves to the Response object representing the response to the request.
+//promise is a JavaScript object that represents the eventual completion (or failure) of an asynchronous operation and its resulting value.
+    const requestUrl= 'https://api.github.com/users/hiteshchoudhary'
+
+    const xhr= new XMLHttpRequest();// create a new XMLHttpRequest object
+    //XMLHttpRequest is a built-in JavaScript object that allows you to make HTTP requests to servers.
+    //HTTP requests are used to send and receive data from a server.
+    //The XMLHttpRequest object is used to interact with servers. It can be used to retrieve data from a URL without having to do a full page refresh.
+    //full page refresh means that the entire page is reloaded, which can be slow and inefficient.
+    //The XMLHttpRequest object is used to send and receive data from a server asynchronously, which means that the page can continue to be used while the request is being processed.
+    // It is used to fetch data from a URL without having to refresh the page.
+    // It is commonly used in AJAX (Asynchronous JavaScript and XML) programming.
+    xhr.open('GET', requestUrl, true) // true for async
+    //what if i do not write true? then it will be synchronous and the browser will be blocked until the request is completed.`
+    console.log(xhr.readyState) // 0, why? because the request is not yet sent
+    // The open() method initializes a request. It specifies the type of request (GET, POST, etc.), the URL, and whether the request should be asynchronous or synchronous.
+    // The first parameter is the HTTP method (GET, POST, etc.), the second parameter is the URL, and the third parameter is a boolean indicating whether the request should be asynchronous (true) or synchronous (false).
+    // set up a function to handle the response
+        // The onreadystatechange property is an event handler that is called whenever the readyState property changes.
+        // readyState property changes? It has 5 possible values:
+        // 0: request not initialized
+        // 1: server connection established
+        // 2: request received
+        // 3: processing request
+        // 4: request finished and response is ready
+        // The onreadystatechange event is triggered every time the readyState changes.
+        // The readyState property holds the status of the XMLHttpRequest.
+        // The status property holds the status of the response (200 for "OK", 404 for "Not Found", etc.).
+        // The responseText property holds the response data as a string.
+        // The responseXML property holds the response data as XML.
+        //WHAT IS READYSTATE? The readyState property of the XMLHttpRequest object holds the status of the XMLHttpRequest.
+        // The readyState property changes from 0 to 4 as the request progresses.
+        xhr.onreadystatechange= function(){
+        console.log(xhr.readyState) // 1,2,3,4 
+        if(xhr.readyState===4 && xhr.status===200){ // check if the request is complete and successful
+            const response= JSON.parse(xhr.responseText) // parse the JSON response
+            //parse? is a method that converts a JSON string into a JavaScript object.
+            //JSON? JavaScript Object Notation (JSON) is a lightweight data interchange format that is easy for humans to read and write and easy for machines to parse and generate.
+            //JSON is a lightweight data interchange format that is easy for humans to read and write and easy for machines to parse and generate.
+            //JSON.parse() is a built-in JavaScript function that converts a JSON string into a JavaScript object.
+            console.log(this.response) //this.response is the response data as a string.
+            console.log(this.responseText) //this.responseText is the response data as a string.
+        }else if(xhr.readyState===4){ // if the request is complete but not successful
+            console.error('Error:', xhr.statusText) // log the error to the console
+        }
+        console.log(xhr.status) // 200, 404, etc.
+
+        
+    } // set up a function to handle the response
+        xhr.send() // send the request
+        
+
+
+
+</script>
+</html>
